@@ -31,10 +31,15 @@ The Ink Graph Settings inspector should look something like this:
     1. Open yEd Graph Editor
     2. `File > Open...` to the `.tgf` file you exported.<br/>(default is `<project>/Exports/<ink file name>.tgf`)
 2. Select your desired import options. For complex stories, you probably want to ignore edge labels.
+
     ![image](https://user-images.githubusercontent.com/73082145/112089304-40c80c80-8bf6-11eb-9c96-9dab9049cc0b.png)
+
 3. Select `Tools > Fit Node to Label` to resize nodes to the labels of the new graph.
+
     ![image](https://user-images.githubusercontent.com/73082145/112089256-27bf5b80-8bf6-11eb-85bf-e277acdce3ee.png)
+
 4. Select `Layout > Hierarchical` or `Layout > Organic` to quickly group your graph.
+
     ![image](https://user-images.githubusercontent.com/73082145/112089322-49b8de00-8bf6-11eb-976c-495eab43e11f.png)
 
 ## License
