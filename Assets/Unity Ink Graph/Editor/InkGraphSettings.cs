@@ -11,6 +11,8 @@ namespace UnityInkGraph {
         [SerializeField] private bool m_DuplicateTunnelNodes = true;
         [SerializeField] private bool m_OpenOnComplete = true;
         [SerializeField] private string[] m_ExcludePaths;
+        [SerializeField] private string[] m_ForceTunnelPaths;
+        [SerializeField] private string[] m_ForceDuplicatePaths;
 
         public DefaultAsset RootInkScript => m_RootInkScript;
         public NodeDepth ExportDepth => m_ExportDepth;
@@ -18,6 +20,8 @@ namespace UnityInkGraph {
         public bool DuplicateTunnelNodes => m_DuplicateTunnelNodes;
         public bool OpenOnComplete => m_OpenOnComplete;
         public string[] ExcludePaths => m_ExcludePaths;
+        public string[] ForceTunnelPaths => m_ForceTunnelPaths;
+        public string[] ForceDuplicatePaths => m_ForceDuplicatePaths;
 
         private void OnValidate() {
             if (m_RootInkScript && !AssetDatabase.GetAssetPath(m_RootInkScript).EndsWith(".ink")) {

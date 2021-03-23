@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: The Intercept Ink Graph Settings
   m_EditorClassIdentifier: 
   m_RootInkScript: {fileID: 102900000, guid: 459322dce50f4ef4ba016bddfbc734ac, type: 3}
-  m_ExportDepth: 0
+  m_ExportDepth: 2
   m_ExportPath: Exports/
   m_DuplicateTunnelNodes: 1
   m_OpenOnComplete: 1
   m_ExcludePaths:
   - DONE
+  m_TunnelOverridePaths: []
+  m_ForceDuplicatePaths: []

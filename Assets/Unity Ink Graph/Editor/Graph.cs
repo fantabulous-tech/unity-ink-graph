@@ -16,6 +16,7 @@ namespace UnityInkGraph {
         private Dictionary<string, GraphEdge> Edges { get; } = new Dictionary<string, GraphEdge>();
         private Dictionary<string, GraphNode> NodeLookup { get; } = new Dictionary<string, GraphNode>();
         private Dictionary<string, GraphNode> DuplicateTunnelLookup { get; } = new Dictionary<string, GraphNode>();
+        private Dictionary<string, GraphNode> ForceDuplicateLookup { get; } = new Dictionary<string, GraphNode>();
         private Dictionary<int, GraphNode> Nodes { get; } = new Dictionary<int, GraphNode>();
 
         private string CurrentKnot { get; set; }
@@ -24,9 +25,8 @@ namespace UnityInkGraph {
         private string CurrentPath { get; set; }
         private GraphNode CurrentNode { get; set; }
         private NodeDepth Depth => m_Settings.ExportDepth;
-        private string[] ExcludePaths => m_Settings.ExcludePaths;
 
-        private InkGraphSettings m_Settings;
+        private readonly InkGraphSettings m_Settings;
         private int m_CurrentId = 1;
 
         public Graph(List<InkFileInfo> inkFiles, InkGraphSettings settings) {
@@ -40,7 +40,6 @@ namespace UnityInkGraph {
                     string line = info.Lines[i];
 
                     if (s_TunnelRegex.IsMatch(line) && CurrentNode != null) {
-                        Nodes[CurrentNode.KnotId].IsTunnel = true;
                         Nodes[CurrentNode.StitchId].IsTunnel = true;
                     } else if (TryParse(s_KnotRegex, line, out string knot)) {
                         SetKnot(knot);
@@ -55,12 +54,12 @@ namespace UnityInkGraph {
             // Add custom targets
             AddNode(NodeType.Knot, "DONE");
             AddNode(NodeType.Knot, "END");
-            
-            // Reset current node to 'root' node.
-            SetRoot();
 
             // Second pass to collect all edges.
             foreach (InkFileInfo info in inkFiles) {
+                // Reset current node to 'root' node for each file.
+                SetRoot();
+                
                 for (int i = 0; i < info.Lines.Length; i++) {
                     string line = info.Lines[i];
 
@@ -134,6 +133,10 @@ namespace UnityInkGraph {
                 node.StitchId = node.Id;
             }
 
+            if (m_Settings.ForceTunnelPaths.Contains(path)) {
+                node.IsTunnel = true;
+            }
+
             return node;
         }
 
@@ -195,6 +198,21 @@ namespace UnityInkGraph {
                     
                 DuplicateTunnelLookup[tunnelId] = target;
                 duplicateTunnel = true;
+            } else if (m_Settings.ForceDuplicatePaths.Contains(target.Label)) {
+                string forcedDuplicateId = source.Label + "->" + target.Label;
+
+                if (ForceDuplicateLookup.ContainsKey(forcedDuplicateId)) {
+                    // Already created this one.
+                    return;
+                }
+
+                if (target.IsUsed) {
+                    target = DuplicateNode(target);
+                } else {
+                    target.IsUsed = true;
+                }
+
+                ForceDuplicateLookup[forcedDuplicateId] = target;
             }
 
             AddEdge(source, target, label);
