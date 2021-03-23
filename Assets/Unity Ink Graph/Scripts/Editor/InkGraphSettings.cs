@@ -1,0 +1,28 @@
+using System.IO;
+using UnityEditor;
+using UnityEngine;
+
+namespace UnityInkGraph {
+    [CreateAssetMenu]
+    public class InkGraphSettings : ScriptableObject {
+        [SerializeField] private DefaultAsset m_RootInkScript;
+        [SerializeField] private NodeDepth m_ExportDepth = NodeDepth.KnotsStitchesAndLabels;
+        [SerializeField] private string m_ExportPath = "Exports/";
+        [SerializeField] private bool m_DuplicateTunnelNodes = true;
+        [SerializeField] private bool m_OpenOnComplete = true;
+        [SerializeField] private string[] m_ExcludePaths;
+
+        public DefaultAsset RootInkScript => m_RootInkScript;
+        public NodeDepth ExportDepth => m_ExportDepth;
+        public string ExportPath => m_ExportPath.EndsWith(".tgf") ? m_ExportPath : Path.Combine(m_ExportPath, $"{m_RootInkScript.name}.tgf");
+        public bool DuplicateTunnelNodes => m_DuplicateTunnelNodes;
+        public bool OpenOnComplete => m_OpenOnComplete;
+        public string[] ExcludePaths => m_ExcludePaths;
+
+        private void OnValidate() {
+            if (m_RootInkScript && !AssetDatabase.GetAssetPath(m_RootInkScript).EndsWith(".ink")) {
+                m_RootInkScript = null;
+            }
+        }
+    }
+}
