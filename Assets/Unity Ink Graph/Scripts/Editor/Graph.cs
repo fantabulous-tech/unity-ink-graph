@@ -9,7 +9,7 @@ namespace UnityInkGraph {
     internal class Graph {
         private static readonly Regex s_KnotRegex = new Regex(@"^\s*==+\s*(?<result>\w+)");
         private static readonly Regex s_StitchRegex = new Regex(@"^\s*=\s*(?<result>\w+)");
-        private static readonly Regex s_LabelRegex = new Regex(@"^(?!\/\/).*-\s*\(\s*(?<result>\w+)\s*\)");
+        private static readonly Regex s_LabelRegex = new Regex(@"^(?!\/\/).*[-*+]+\s*\(\s*(?<result>\w+)\s*\)");
         private static readonly Regex s_RedirectRegex = new Regex(@"->\s*(?<result>[\w\.]+)");
         private static readonly Regex s_TunnelRegex = new Regex(@"^(?!\/\/).*->->");
 
