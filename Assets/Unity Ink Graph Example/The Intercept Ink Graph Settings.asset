@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 856f63cdbbc04d8c8300ac9d547ce594, type: 3}
-  m_Name: Test Graph Settings
+  m_Name: The Intercept Ink Graph Settings
   m_EditorClassIdentifier: 
-  m_RootInkScript: {fileID: 0}
-  m_ExportDepth: 2
-  m_ExportPath: Exports/Ink Graph.tgf
+  m_RootInkScript: {fileID: 102900000, guid: 459322dce50f4ef4ba016bddfbc734ac, type: 3}
+  m_ExportDepth: 0
+  m_ExportPath: Exports/
   m_DuplicateTunnelNodes: 1
   m_OpenOnComplete: 1
-  m_ExcludePaths: []
+  m_ExcludePaths:
+  - DONE
