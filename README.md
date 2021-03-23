@@ -1,14 +1,14 @@
 # Unity Ink Graph
 
-Unity scripts for exporting a `.tgf` file for importing into the [yEd Graph Editor](https://www.yworks.com/products/yed) from a root `.ink` file.
+Unity scripts for creating a `.tgf` graph file for importing into the [yEd Graph Editor](https://www.yworks.com/products/yed) from a root `.ink` file written in [Inkle's Ink scripting language](https://www.inklestudios.com/ink/).
 
-Here is an example of 'The Intercept' as an exported graph in the yEd Graph Editor.
+Here is an example of ['The Intercept'](https://www.inklestudios.com/ink/theintercept/) ink story looks like as an exported graph in the yEd Graph Editor.
 
 ![image](https://user-images.githubusercontent.com/73082145/112088971-a23bab80-8bf5-11eb-9e62-5d7b9edfb165.png)
 
 ## Installation
 
-1. Pull down this project.
+1. Pull down this project from GitHub.
 2. Install the free [yEd Graph Editor](https://www.yworks.com/products/yed)
 3. Associate yEd with `.tgf` files.
 4. Add your ink scripts to this project or add the 'Unity Ink Graph' folder to your own project.
@@ -36,9 +36,13 @@ The Ink Graph Settings inspector should look something like this:
 
 3. Select `Tools > Fit Node to Label` to resize nodes to the labels of the new graph.
 
+    Note: The Fit Node to Label dialog box can be 'docked' for quick access in yEd.
+
     ![image](https://user-images.githubusercontent.com/73082145/112089256-27bf5b80-8bf6-11eb-85bf-e277acdce3ee.png)
 
 4. Select `Layout > Hierarchical` or `Layout > Organic` to quickly group your graph.
+
+    Note: The Layout dialog box can be 'docked' for quick access in yEd.
 
     ![image](https://user-images.githubusercontent.com/73082145/112089322-49b8de00-8bf6-11eb-976c-495eab43e11f.png)
 
