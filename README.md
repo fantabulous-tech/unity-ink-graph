@@ -18,17 +18,17 @@ Unity scripts for exporting a `.tgf` file for importing into the [yEd Graph Edit
 2. Set the settings you want to use to export in the Inspector window.
 3. Click the 'Create Graph' button.
 
-### Formatting in yEd
+### Importing in yEd
 1. If your graph didn't open automatically in the yEd Graph Editor...
     1. Open yEd Graph Editor
-    2. Open the `.tgf` file you exported.<br/>(default is `<project>/Exports/<ink file name>.tgf`)
+    2. `File > Open...` to the `.tgf` file you exported.<br/>(default is `<project>/Exports/<ink file name>.tgf`)
 2. Select your desired import options. For complex stories, you probably want to ignore edge labels.
 3. Select `Tools > Fit Node to Label` to resize nodes to the labels of the new graph.
 4. Select `Layout > Organic` to quickly group your graph.
 
 ## License
 
-[MIT License](https://github.com/fantabulous-tech/unity-ink-graph/blob/master/LICENSE.md)
+[MIT License](https://github.com/fantabulous-tech/unity-ink-graph/blob/master/LICENSE)
 
 Copyright (c) 2021 Fantabulous Tech
 
