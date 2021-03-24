@@ -179,10 +179,14 @@ namespace UnityInkGraph {
                 return;
             }
 
+            if (m_Settings.TunnelNodesHandling == TunnelNodesHandling.Remove && (target.IsTunnel || source.IsTunnel)) {
+                return;
+            }
+
             bool duplicateTunnel = false;
 
             // Duplicate tunnels if needed.
-            if (m_Settings.DuplicateTunnelNodes && target.IsTunnel && source != target) {
+            if (m_Settings.TunnelNodesHandling == TunnelNodesHandling.Duplicate && target.IsTunnel && source != target) {
                 string tunnelId = source.Label + "->" + target.Label;
 
                 if (DuplicateTunnelLookup.ContainsKey(tunnelId)) {
@@ -237,8 +241,6 @@ namespace UnityInkGraph {
         }
 
         private GraphNode GetNodeAtDepth(GraphNode node) {
-            bool wasTunnel = node.IsTunnel;
-
             switch (Depth) {
                 case NodeDepth.KnotsOnly:
                     node = Nodes[node.KnotId];
@@ -250,10 +252,6 @@ namespace UnityInkGraph {
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-
-            if (wasTunnel && !node.IsTunnel) {
-                node.IsTunnel = true;
             }
 
             return node;
@@ -282,6 +280,10 @@ namespace UnityInkGraph {
 
             foreach (GraphNode node in Nodes.Values) {
                 if (!node.IsExcluded && node.IsAtDepth(Depth)) {
+                    if (m_Settings.TunnelNodesHandling == TunnelNodesHandling.Remove && node.IsTunnel) {
+                        continue;
+                    }
+
                     sb.AppendLine($"{node.Id} {node.Label}");
                 }
             }
@@ -298,18 +300,19 @@ namespace UnityInkGraph {
                     Debug.LogWarning($"Couldn't find target id for '{edge.Label}'.");
                     continue;
                 }
-                
-                GraphNode source = Nodes[edge.Source];
-                GraphNode target = Nodes[edge.Target];
+
+                GraphNode source = GetNodeAtDepth(Nodes[edge.Source]);
+                GraphNode target = GetNodeAtDepth(Nodes[edge.Target]);
 
                 if (source.IsExcluded || target.IsExcluded) {
                     continue;
                 }
 
-                int sourceId = source.GetIdAtDepth(Depth);
-                int targetId = target.GetIdAtDepth(Depth);
-
-                sb.AppendLine($"{sourceId} {targetId} {edge.Label}");
+                if (m_Settings.TunnelNodesHandling == TunnelNodesHandling.Remove && (source.IsTunnel || target.IsTunnel)) {
+                    continue;
+                }
+                
+                sb.AppendLine($"{source.Id} {target.Id} {edge.Label}");
             }
 
             return sb.ToString();

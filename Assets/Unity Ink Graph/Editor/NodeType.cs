@@ -5,9 +5,4 @@ namespace UnityInkGraph {
         Label
     }
 
-    public enum NodeDepth {
-        KnotsOnly,
-        KnotsAndStitches,
-        KnotsStitchesAndLabels
-    }
 }
